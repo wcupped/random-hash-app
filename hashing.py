@@ -1,5 +1,5 @@
-from customtkinter import*
 import hashlib
+from tkinter import END
 
 # Словарь хэш-функций
 hash_functions = {
@@ -11,18 +11,18 @@ hash_functions = {
     'md5': hashlib.md5,
 }
 
-def hash(field,resfield,hchoose):
-    text = field.get()
+def hash(input_field, result_field, hash_choice):
+    text = input_field.get()
     if not text:
-        resfield.delete(0, END)
-        resfield.insert(0, 'Please enter some text.')
+        result_field.delete(0, END)
+        result_field.insert(0, 'Please enter some text.')
         return
 
-    hash_function = hchoose.get()
+    hash_function = hash_choice.get()
     try:
         hashed_object = hash_functions[hash_function](text.encode())
-        resfield.delete(0, END)
-        resfield.insert(0, hashed_object.hexdigest())
+        result_field.delete(0, END)
+        result_field.insert(0, hashed_object.hexdigest())
     except KeyError:
-        resfield.delete(0, END)
-        resfield.insert(0, 'Unsupported hash function.')
+        result_field.delete(0, END)
+        result_field.insert(0, 'Unsupported hash function.')
